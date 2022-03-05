@@ -44,10 +44,11 @@ function lovelyMessage() {
  */
 function randomItemFromNumberRangeInObjectOfListsKeyedByNumber(obj, min, max) {
   const keyNumbersInRange = Object.keys(obj)
-                                  .map(key => parseInt(key, 10))
+                                  .map(key => parseFloat(key))
                                   .filter(n => n >= min && n <= max);
 
-  const list = obj[randFromArray(keyNumbersInRange)];
+  const randomKeyNumber = randFromArray(keyNumbersInRange);
+  const list = obj[randomKeyNumber.toString()];
   return list[Math.floor(Math.random() * list.length)];
 }
 

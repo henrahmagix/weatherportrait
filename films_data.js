@@ -1,6 +1,10 @@
 const filmsByISO = {
-"0.8": "FPP Super Positive Film 0.8",
-"1.6": "FPP Low ISO Color 1.6",
+"0.8": [
+  "FPP Super Positive Film 0.8",
+],
+"1.6": [
+  "FPP Low ISO Color 1.6",
+],
 3: [
   "FPP Blue Ultra Color 3",
   "FPP Eastman Kodak 5302 Fine Grain 3",
