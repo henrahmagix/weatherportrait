@@ -4,11 +4,19 @@ noscript * {
 }
 noscript {
   display: block;
-  padding: 1rem;
   margin: -1rem;
   margin-bottom: 1rem;
+}
+noscript, .error {
   background-color: #ffa8ee;
   border: 0.5rem solid white;
+  padding: 1rem;
+}
+
+.error-icon {
+  color: red;
+  font-weight: bold;
+  padding-right: 0.25em;
 }
 
 html {

@@ -64,7 +64,9 @@ function run() {
   const postcodeInput = /** @type {HTMLInputElement} */ (document.getElementById('postcode_input'));
   const errorsElement = /** @type {HTMLElement} */      (document.getElementById('get_postcode_errors'));
   const resultElement = /** @type {HTMLElement} */      (document.getElementById('result'));
-  const debugElement  = /** @type {HTMLPreElement} */   (document.getElementById('result_debug'));
+  // const debugElement  = /** @type {HTMLPreElement} */   (document.getElementById('result_debug'));
+
+  const errorPrefix = errorsElement.innerHTML;
 
   const resultTitleEl     = /** @type {HTMLElement} */      (document.getElementById('result_title'));
   // const resultDateEl      = /** @type {HTMLElement} */      (document.getElementById('result_date'));
@@ -80,7 +82,7 @@ function run() {
       history.pushState(null, '', `?postcode=${postcode}`);
       fetchAndDisplay(postcode);
     } else {
-      setText(errorsElement, 'Please enter the first part of a postcode, or a BBC Weather location ID');
+      setError('Please enter the first part of a postcode, or a BBC Weather location ID');
     }
   });
 
@@ -90,42 +92,61 @@ function run() {
     fetchAndDisplay(urlPostcode);
   }
 
+  function setError(err) {
+    errorsElement.hidden = false;
+    if (err instanceof ProgressEvent) {
+      errorsElement.innerHTML = `${errorPrefix} ProgressEvent ${err.type}: ${err.loaded} bytes received`;
+    } else {
+      errorsElement.innerHTML = `${errorPrefix} ${err}`;
+    }
+  }
+
+  function clearError() {
+    errorsElement.hidden = true;
+    errorsElement.textContent = '';
+  }
+
   /**
    * @param {string} postcode
    */
   function fetchAndDisplay(postcode) {
     postcode = postcode.toLowerCase();
 
-    clearText(errorsElement);
-    debugElement.innerHTML = '';
+    clearError();
+    // debugElement.innerHTML = '';
     resultTitleEl.innerHTML = '';
     // resultDateEl.innerHTML = '';
     resultCopyrightEl.innerHTML = '';
     resultItemsEl.innerHTML = '';
     resultSourceEl.innerHTML = '';
 
+    const kindError = "sometimes the beeb's RSS feed is a bit 🤷, not sure why, keep trying again and hopefully it'll work 😊";
+
     const feedUrl = `https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/${postcode}`;
     xhrGet(feedUrl)
       .then(res => {
         if (!res) {
-          setText(errorsElement, 'No response');
+          setError(`No response - ${kindError}`);
           return;
         }
 
         if (res.status != 200) {
-          setText(debugElement, `Non-200 response: ${res.response}`);
+          setError(`Unexpected response - ${kindError}`);
+          console.error(`Non-200 response:\n${res.response}`);
           return;
         }
 
         if (!res.responseXML) {
-          setText(debugElement, res.response);
+          setError(`Unexpected response - ${kindError}`);
+          console.error(`No response XML:\n${res.response}`);
           return;
         }
 
         const xmlJson = parseXmlToObject(res.responseXML, ['item']);
         const weatherValues = xmlJson && xmlJson.rss && xmlJson.rss.channel;
         if (!weatherValues) {
-          setText(debugElement, `Unable to parse RSS feed:\n${res.responseXML.documentElement.outerHTML}`);
+          setError(`Unexpected response - ${kindError}`);
+          console.error(`Unable to parse weather values from RSS feed:\n${res.responseXML.documentElement.outerHTML}`);
           return;
         }
 
@@ -150,7 +171,7 @@ function run() {
           // When inputting a lowercase postcode, the RSS feed returns a page
           // link with the postcode in uppercase, which fails to find a forecast
           // when you visit it. So until that gets fixed (or maybe we're using
-          // the RSS feed wrong?) then we build our own link.
+          // the RSS feed wrong?) then we build our own source link.
           // sourcePageLink.href        = weatherValues.link['#text'];
           sourcePageLink.href        = `https://www.bbc.co.uk/weather/${postcode}`;
           sourcePageLink.textContent = 'page';
@@ -160,7 +181,7 @@ function run() {
 
         if (weatherValues.item) {
           weatherValues.item.forEach(item => {
-            let /** @type {string} */ title      = item.title && item.title['#text'].split(',')[0]; // pulls out the name of the day and overview; ignores temperatures
+            let /** @type {string} */ title = item.title && item.title['#text'].split(',')[0]; // pulls out the name of the day and overview; ignores temperatures
             if (!title) {
               return;
             }
@@ -188,15 +209,16 @@ function run() {
           resultItemsEl.appendChild(listItem);
         }
 
-        if (!resultElement.textContent || resultElement.textContent.length === 0) {
-          setText(debugElement, `Unable to parse RSS feed:\n${res.responseXML.documentElement.outerHTML}`);
+        if (!resultItemsEl.textContent || resultItemsEl.textContent.length === 0) {
+          setError(`Something went wrong - ${kindError}`);
+          console.error(`Unable to parse weather items from RSS feed:\n${res.responseXML.documentElement.outerHTML}`);
         } else {
-          clearText(debugElement);
+          clearError();
           resultElement.hidden = false;
         }
       })
       .catch(err => {
-        setText(errorsElement, 'Something went wrong, please try again');
+        setError(`Something went wrong - ${kindError}`);
         console.error(err);
       });
   }
@@ -218,27 +240,6 @@ async function xhrGet(url) {
     req.open('GET', url);
     req.send();
   });
-}
-
-/**
- * @param {HTMLElement} el
- * @param {any} err
- */
-function setText(el, err) {
-  el.hidden = false;
-  if (err instanceof ProgressEvent) {
-    el.textContent = `ProgressEvent ${err.type}: ${err.loaded} bytes received`;
-  } else {
-    el.textContent = err;
-  }
-}
-
-/**
- * @param {HTMLElement} el
- */
-function clearText(el) {
-  el.hidden = true;
-  el.textContent = '';
 }
 
 /**

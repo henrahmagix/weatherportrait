@@ -23,7 +23,9 @@
       <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" style="width: 30ex;" required>
       <button type="submit">Submit</button>
       <span id="form_loading" class="loading-progress" aria-label="Loading" hidden>⏳</span>
-      <p id="get_postcode_errors" class="error" hidden>Errors</p>
+      <p id="get_postcode_errors" class="error" hidden>
+        <span aria-label="Error:" class="error-icon">!</span>
+      </p>
     </form>
 
     <div class="hr"></div>
@@ -32,7 +34,7 @@
       <h2 id="result_title" class=""></h2>
       <!-- <p id="result_date"></p> -->
       <dl id="result_items" class="result-list"></dl>
-      <pre id="result_debug"></pre>
+      <!-- <pre id="result_debug"></pre> -->
 
       <footer>
         <div class="sources">
