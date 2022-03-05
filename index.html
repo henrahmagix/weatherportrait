@@ -10,13 +10,24 @@
 <body>
   <header>
     <h1>Weather Portrait | Film speed for the Weather</h1>
+    <p>
+      This page fetches the BBC Weather RSS 3day forecast feed for a given location ID, which fortunately also works for the first part of a UK postcode.
+      If it's not returning data, or you want to use a more precise location, first visit <a href="https://bbc.co.uk/weather">https://bbc.co.uk/weather</a>,
+      search for your location, then copy the 7-digit number from the url (the last part). For example, searching for "Manchester" and choosing the first result,
+      "Manchester, Manchester", results in <a href="https://www.bbc.co.uk/weather/2643123">https://www.bbc.co.uk/weather/2643123</a>.
+      Therefore using 2643123 in the form below will give you a forecast for Manchester, UK.
+    </p>
   </header>
+
+  <noscript>
+    <p>Unfortunately this won't work without JavaScript, because it's only a simple HTML file with one CSS and one JS file.</p>
+  </noscript>
 
   <main>
     <form id="get_postcode">
       <label>
-        Enter first part of postcode:
-        <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A or AB15" required>
+        Enter first part of postcode, or 7-digit location id:
+        <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" required>
       </label>
       <button type="submit">Submit</button>
       <p id="get_postcode_errors" hidden>Errors</p>
@@ -25,11 +36,11 @@
     <article id="result" hidden>
       <h2 id="result_title"></h2>
       <p id="result_date"></p>
-      <p id="result_copyright"></p>
       <ul id="result_items"></ul>
       <pre id="result_debug"></pre>
       <footer>
         <p id="result_source"></p>
+        <p id="result_copyright"></p>
       </footer>
     </article>
   </main>
