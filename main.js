@@ -52,9 +52,7 @@ function randomItemFromNumberRangeInObjectOfListsKeyedByNumber(obj, min, max) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-/**
- * @param {any[]} arr
- */
+/** @param {any[]} arr */
 function randFromArray(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -64,6 +62,7 @@ function run() {
   const postcodeInput = /** @type {HTMLInputElement} */ (document.getElementById('postcode_input'));
   const errorsElement = /** @type {HTMLElement} */      (document.getElementById('get_postcode_errors'));
   const resultElement = /** @type {HTMLElement} */      (document.getElementById('result'));
+  const loadingElement = /** @type {HTMLElement} */      (document.getElementById('form_loading'));
   // const debugElement  = /** @type {HTMLPreElement} */   (document.getElementById('result_debug'));
 
   const errorPrefix = errorsElement.innerHTML;
@@ -94,11 +93,7 @@ function run() {
 
   function setError(err) {
     errorsElement.hidden = false;
-    if (err instanceof ProgressEvent) {
-      errorsElement.innerHTML = `${errorPrefix} ProgressEvent ${err.type}: ${err.loaded} bytes received`;
-    } else {
-      errorsElement.innerHTML = `${errorPrefix} ${err}`;
-    }
+    errorsElement.innerHTML = `${errorPrefix} ${err}`;
   }
 
   function clearError() {
@@ -106,13 +101,12 @@ function run() {
     errorsElement.textContent = '';
   }
 
-  /**
-   * @param {string} postcode
-   */
+  /** @param {string} postcode */
   function fetchAndDisplay(postcode) {
     postcode = postcode.toLowerCase();
 
     clearError();
+    loadingElement.hidden = false;
     // debugElement.innerHTML = '';
     resultTitleEl.innerHTML = '';
     // resultDateEl.innerHTML = '';
@@ -125,6 +119,8 @@ function run() {
     const feedUrl = `https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/${postcode}`;
     xhrGet(feedUrl)
       .then(res => {
+        loadingElement.hidden = true;
+
         if (!res) {
           setError(`No response - ${kindError}`);
           return;
