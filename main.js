@@ -75,7 +75,13 @@ function run() {
   postcodeForm.addEventListener('submit', event => {
     event.preventDefault();
     event.stopPropagation();
-    fetchAndDisplay(postcodeInput.value);
+    const postcode = postcodeInput.value.trim();
+    if (postcode) {
+      history.pushState(null, '', `?postcode=${postcode}`);
+      fetchAndDisplay(postcode);
+    } else {
+      setText(errorsElement, 'Please enter the first part of a postcode, or a BBC Weather location ID');
+    }
   });
 
   const urlPostcode = new URLSearchParams(location.search).get('postcode');
