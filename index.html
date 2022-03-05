@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Weather Portrait | Film speed for the Weather</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+  <header>
+    <h1>Weather Portrait | Film speed for the Weather</h1>
+  </header>
+
+  <main>
+    <form id="get_postcode">
+      <label>
+        Enter first part of postcode:
+        <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A or AB15" required>
+      </label>
+      <button type="submit">Submit</button>
+      <p id="get_postcode_errors" hidden>Errors</p>
+    </form>
+
+    <article id="result" hidden>
+      <h2 id="result_title"></h2>
+      <p id="result_date"></p>
+      <p id="result_copyright"></p>
+      <ul id="result_items"></ul>
+      <pre id="result_debug"></pre>
+      <footer>
+        <p id="result_source"></p>
+      </footer>
+    </article>
+  </main>
+
+  <footer>
+    <p>
+      <a href="https://henryblyth.com">Built by Henry Blyth</a>
+      <br>
+      <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">Based on a tweet idea by Rab Fyfe</a>
+    </p>
+    <blockquote class="twitter-tweet">
+      <p lang="en" dir="ltr">
+        App idea: another weather app but it shows film speeds.
+        <br>
+        <br>
+        Sunday with <a href="https://twitter.com/iamashley?ref_src=twsrc%5Etfw">@iamashley</a>
+        looks to be a nice dose of <a href="https://twitter.com/Kodak?ref_src=twsrc%5Etfw">@Kodak</a> Portra 160.
+      </p>
+      &mdash; Rab Fyfe (@ItsRab)
+      <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">March 4, 2022</a>
+    </blockquote>
+  </footer>
+
+  <script src='main.js'></script>
+</body>
+</html>
