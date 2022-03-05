@@ -7,6 +7,57 @@
   }
 }());
 
+/**
+ * @param {string} sunniness
+ * @param {number} uv
+ */
+function filmFromSunninessAndUV(sunniness, uv) {
+  if (sunniness === 'Sunny') {
+    return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 0, 200);
+  } else if (sunniness === 'Sunny Intervals') {
+    if (uv > 1) {
+      return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 160, 400);
+    } else {
+      return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 160, 200);
+    }
+  } else {
+    return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 500, 10000);
+  }
+}
+
+const messages = [
+  'looks to be a nice dose of',
+  'how about a spot of',
+  'perhaps a smidge of',
+  'maybe a roll of',
+  'feels like a day of',
+];
+
+function lovelyMessage() {
+  return randFromArray(messages);
+}
+
+/**
+ * @param {object} obj
+ * @param {number} min
+ * @param {number} max
+ */
+function randomItemFromNumberRangeInObjectOfListsKeyedByNumber(obj, min, max) {
+  const keyNumbersInRange = Object.keys(obj)
+                                  .map(key => parseInt(key, 10))
+                                  .filter(n => n >= min && n <= max);
+
+  const list = obj[randFromArray(keyNumbersInRange)];
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+/**
+ * @param {any[]} arr
+ */
+function randFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function run() {
   const postcodeForm  = /** @type {HTMLFormElement} */  (document.getElementById('get_postcode'));
   const postcodeInput = /** @type {HTMLInputElement} */ (document.getElementById('postcode_input'));
@@ -62,7 +113,7 @@ function run() {
           return;
         }
 
-        const xmlJson = parseXml(res.responseXML, ['item']);
+        const xmlJson = parseXmlToObject(res.responseXML, ['item']);
         const weatherValues = xmlJson && xmlJson.rss && xmlJson.rss.channel;
         if (!weatherValues) {
           setText(debugElement, `Unable to parse RSS feed:\n${res.responseXML.documentElement.outerHTML}`);
@@ -108,12 +159,22 @@ function run() {
 
         if (weatherValues.item) {
           weatherValues.item.forEach(item => {
-            let title = item.title && item.title['#text'].split(',')[0]; // pulls out the name of the day and overview; ignores temperatures
-            let uv = item.description && item.description['#text'].match(/UV[^,.]+/);
-            const text = `${title && title + ' '}${uv && uv[0]}`;
-            if (text) {
+            let /** @type {string} */ title      = item.title && item.title['#text'].split(',')[0]; // pulls out the name of the day and overview; ignores temperatures
+            if (!title) {
+              return;
+            }
+
+            let titleParts = title.split(':');
+            let day        = titleParts[0];
+            let sunniness  = titleParts[1] && titleParts[1].trim();
+
+            let /** @type {string} */ uvString = item.description && item.description['#text'];
+            let uvMatch = uvString.match(/UV[^,.]*(\d+)/);
+            let uvNumber = uvMatch && uvMatch[1];
+
+            if (title && uvNumber != null) {
               const listItem = document.createElement('li');
-              listItem.textContent = text;
+              listItem.textContent = `${day}: ${lovelyMessage()} ${filmFromSunninessAndUV(sunniness, parseInt(uvNumber[1], 10))}`;
               resultItemsEl.appendChild(listItem);
             }
           });
@@ -176,8 +237,9 @@ function clearText(el) {
 /**
  * @param {Document} xml
  * @param {string[]=} arrayTags
+ * Copied from https://stackoverflow.com/a/19448718/3150057 (thanks Maylow Hayes)
  */
-function parseXml(xml, arrayTags) {
+function parseXmlToObject(xml, arrayTags) {
   /**
    * @param {Element} xmlNode
    * @param {object} result
