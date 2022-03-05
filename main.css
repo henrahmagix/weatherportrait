@@ -32,6 +32,11 @@ body {
   line-height: 1.6;
 }
 
+::selection {
+  color: #ffa8ee;
+  background-color: #00008b;
+}
+
 a, .result-list dd em {
   /* color: #7A0060; */
   color: black;
@@ -42,15 +47,19 @@ a, .result-list dd em {
 a:hover, a:focus, .result-list dd em {
   color: #ffa8ee;
 }
+a:hover::selection, a:focus::selection, .result-list dd em::selection {
+  background-color: #ffa8ee;
+  color: #00008b;
+}
 a:hover::before, a:focus::before, .result-list dd em::before {
   content: '';
   position: absolute;
   z-index: -1;
-  top: -0.25rem;
-  right: -0.25rem;
-  bottom: -0.25rem;
+  top: 0;
+  bottom: 0;
   left: -0.25rem;
-  background-color: darkblue;
+  right: -0.25rem;
+  background-color: #00008b;
   padding: 2px 6px;
 }
 
