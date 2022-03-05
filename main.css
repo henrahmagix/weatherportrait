@@ -22,9 +22,9 @@ html {
 }
 
 body {
-  color: #4f2d02;
+  color: #1c1b1a;
   background-color: #94dcff;
-  border: 1rem groove #eedbc2;
+  border: 1rem ridge #eedbc2;
   margin: 0;
   padding: 1rem;
   min-height: calc(100vh - 4rem);
@@ -33,8 +33,9 @@ body {
 }
 
 a, .result-list dd em {
-  color: #7A0060;
+  /* color: #7A0060; */
   color: black;
+  display: inline-block;
   position: relative;
   z-index: 1;
 }
