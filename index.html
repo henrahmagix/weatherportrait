@@ -3,15 +3,19 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Weather Portrait | Film speed for the Weather</title>
+  <title>Weather Portrait</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌤</text></svg>">
 </head>
 <body>
+  <noscript>
+    <p>Unfortunately this won't work without JavaScript, because it's only a simple HTML file with one CSS and one JS file.</p>
+  </noscript>
+
   <header>
-    <h1>Weather Portrait | Film speed for the Weather</h1>
-    <p>
+    <h1 class="page-title">Film speed for the Weather</h1>
+    <p class="page-description">
       This page fetches the BBC Weather RSS 3day forecast feed for a given location ID, which fortunately also works for the first part of a UK postcode.
       If it's not returning data, or you want to use a more precise location, first visit <a href="https://bbc.co.uk/weather">https://bbc.co.uk/weather</a>,
       search for your location, then copy the 7-digit number from the url (the last part). For example, searching for "Manchester" and choosing the first result,
@@ -20,36 +24,40 @@
     </p>
   </header>
 
-  <noscript>
-    <p>Unfortunately this won't work without JavaScript, because it's only a simple HTML file with one CSS and one JS file.</p>
-  </noscript>
+  <div class="hr"></div>
 
   <main>
     <form id="get_postcode">
-      <label>
-        Enter first part of postcode, or 7-digit location id:
-        <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" required>
-      </label>
+      <label class="form-field" for="postcode_input">Enter first part of postcode, or 7-digit location id:</label>
+      <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" style="width: 30ex;" required>
       <button type="submit">Submit</button>
-      <p id="get_postcode_errors" hidden>Errors</p>
+      <p id="get_postcode_errors" class="error" hidden>Errors</p>
     </form>
 
     <article id="result" hidden>
-      <h2 id="result_title"></h2>
-      <p id="result_date"></p>
-      <ul id="result_items"></ul>
+      <h2 id="result_title" class=""></h2>
+      <!-- <p id="result_date"></p> -->
+      <dl id="result_items" class="result-list"></dl>
       <pre id="result_debug"></pre>
+
       <footer>
-        <p id="result_source"></p>
-        <p>Source for film stocks: <a href="https://en.wikipedia.org/wiki/List_of_photographic_films" aria-label="List of photographic films on Wikipedia">wikipedia</a></p>
-        <p id="result_copyright"></p>
+        <div class="sources">
+          <p>
+            <span id="result_source"></span>
+            <br>
+            <span id="result_copyright"></span>
+          </p>
+          <p>Source for film stocks: <a href="https://en.wikipedia.org/wiki/List_of_photographic_films" aria-label="List of photographic films on Wikipedia">wikipedia</a></p>
+        </div>
       </footer>
     </article>
   </main>
 
+  <div class="hr large"></div>
+
   <footer>
     <p>
-      <a href="https://henryblyth.com">Built by Henry Blyth</a>
+      <a href="https://henryblyth.com">Built by Henry Blyth</a> 📸
       <br>
       <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">Based on a tweet idea by Rab Fyfe</a>
     </p>

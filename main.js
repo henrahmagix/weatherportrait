@@ -67,9 +67,9 @@ function run() {
   const debugElement  = /** @type {HTMLPreElement} */   (document.getElementById('result_debug'));
 
   const resultTitleEl     = /** @type {HTMLElement} */      (document.getElementById('result_title'));
-  const resultDateEl      = /** @type {HTMLElement} */      (document.getElementById('result_date'));
+  // const resultDateEl      = /** @type {HTMLElement} */      (document.getElementById('result_date'));
   const resultCopyrightEl = /** @type {HTMLElement} */      (document.getElementById('result_copyright'));
-  const resultItemsEl     = /** @type {HTMLUListElement} */ (document.getElementById('result_items'));
+  const resultItemsEl     = /** @type {HTMLDListElement} */ (document.getElementById('result_items'));
   const resultSourceEl    = /** @type {HTMLElement} */      (document.getElementById('result_source'));
 
   postcodeForm.addEventListener('submit', event => {
@@ -94,10 +94,12 @@ function run() {
    * @param {string} postcode
    */
   function fetchAndDisplay(postcode) {
+    postcode = postcode.toLowerCase();
+
     clearText(errorsElement);
     debugElement.innerHTML = '';
     resultTitleEl.innerHTML = '';
-    resultDateEl.innerHTML = '';
+    // resultDateEl.innerHTML = '';
     resultCopyrightEl.innerHTML = '';
     resultItemsEl.innerHTML = '';
     resultSourceEl.innerHTML = '';
@@ -130,7 +132,7 @@ function run() {
         resultElement.lang = weatherValues.language && weatherValues.language['#text']; // if null, attr will be removed, which is good, so it defaults to inheritance
 
         resultTitleEl.textContent = weatherValues.title && weatherValues.title['#text'];
-        resultDateEl.textContent = weatherValues.pubDate && weatherValues.pubDate['#text'];
+        // resultDateEl.textContent = weatherValues.pubDate && `Report made at ${weatherValues.pubDate['#text']}`;
         resultCopyrightEl.textContent = weatherValues.copyright && weatherValues.copyright['#text'];
 
         if (weatherValues.link) {
@@ -150,18 +152,10 @@ function run() {
           // when you visit it. So until that gets fixed (or maybe we're using
           // the RSS feed wrong?) then we build our own link.
           // sourcePageLink.href        = weatherValues.link['#text'];
-          sourcePageLink.href        = `https://www.bbc.co.uk/weather/${postcodeInput.value}`;
+          sourcePageLink.href        = `https://www.bbc.co.uk/weather/${postcode}`;
           sourcePageLink.textContent = 'page';
           sourceFeedLink.ariaLabel   = 'Source page for the weather data';
           resultSourceEl.appendChild(sourcePageLink);
-        }
-
-        if (weatherValues.image) {
-          const img = new Image();
-          img.src = weatherValues.image.url['#text'];
-          // Unfortunately there's no textual information for this icon, so it's purely decorative even though it offers visual information :'<
-          img.alt = '';
-          resultTitleEl.prepend(img);
         }
 
         if (weatherValues.item) {
@@ -180,13 +174,16 @@ function run() {
             let uvNumber = uvMatch && uvMatch[1];
 
             if (title && uvNumber != null) {
-              const listItem = document.createElement('li');
-              listItem.textContent = `${day}: ${lovelyMessage()} ${filmFromSunninessAndUV(sunniness, parseInt(uvNumber[1], 10))}`;
+              const listTitle = document.createElement('dt');
+              const listItem = document.createElement('dd');
+              listTitle.textContent = day;
+              listItem.innerHTML = `${lovelyMessage()} <em>${filmFromSunninessAndUV(sunniness, parseInt(uvNumber[1], 10))}</em>${Math.random() > 0.5 ? '?' : ''}`;
+              resultItemsEl.appendChild(listTitle);
               resultItemsEl.appendChild(listItem);
             }
           });
         } else {
-          const listItem = document.createElement('li');
+          const listItem = document.createElement('dd');
           listItem.textContent = 'No forecast days found';
           resultItemsEl.appendChild(listItem);
         }
