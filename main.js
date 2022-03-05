@@ -104,9 +104,9 @@ function run() {
           return;
         }
 
-        window.res = res;
         if (res.status != 200) {
-          throw new Error(`Non-200 response: ${res.response}`);
+          setText(debugElement, `Non-200 response: ${res.response}`);
+          return;
         }
 
         if (!res.responseXML) {
@@ -192,7 +192,10 @@ function run() {
           resultElement.hidden = false;
         }
       })
-      .catch(err => setText(errorsElement, err));
+      .catch(err => {
+        setText(errorsElement, 'Something went wrong, please try again');
+        console.error(err);
+      });
   }
 }
 
