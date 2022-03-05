@@ -22,7 +22,7 @@
       <label class="form-field" for="postcode_input">Enter first part of postcode, or 7-digit location id:</label>
       <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" style="width: 30ex;" required>
       <button type="submit">Submit</button>
-      <span id="form_loading" class="loading-progress" aria-label="Loading" hidden>⏳</span>
+      <span id="form_loading" class="loading-progress" aria-label="Waiting for the weather report…" hidden>⏳</span>
       <p id="get_postcode_errors" class="error" hidden>
         <span aria-label="Error:" class="error-icon">!</span>
       </p>
@@ -30,7 +30,7 @@
 
     <div class="hr"></div>
 
-    <article id="result" hidden>
+    <article id="result" class="results" hidden>
       <h2 id="result_title" class=""></h2>
       <!-- <p id="result_date"></p> -->
       <dl id="result_items" class="result-list"></dl>

@@ -91,6 +91,12 @@ function run() {
     fetchAndDisplay(urlPostcode);
   }
 
+  /** @param {boolean} isLoading */
+  function setLoading(isLoading) {
+    loadingElement.hidden = !isLoading;
+    resultElement.classList.toggle('is-loading', isLoading);
+  }
+
   function setError(err) {
     errorsElement.hidden = false;
     errorsElement.innerHTML = `${errorPrefix} ${err}`;
@@ -106,20 +112,21 @@ function run() {
     postcode = postcode.toLowerCase();
 
     clearError();
-    loadingElement.hidden = false;
-    // debugElement.innerHTML = '';
-    resultTitleEl.innerHTML = '';
-    // resultDateEl.innerHTML = '';
-    resultCopyrightEl.innerHTML = '';
-    resultItemsEl.innerHTML = '';
-    resultSourceEl.innerHTML = '';
+    setLoading(true);
 
     const kindError = "sometimes the beeb's RSS feed is a bit 🤷, not sure why, keep trying again and hopefully it'll work 😊";
 
     const feedUrl = `https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/${postcode}`;
     xhrGet(feedUrl)
       .then(res => {
-        loadingElement.hidden = true;
+        setLoading(false);
+
+        // debugElement.innerHTML = '';
+        resultTitleEl.innerHTML = '';
+        // resultDateEl.innerHTML = '';
+        resultCopyrightEl.innerHTML = '';
+        resultItemsEl.innerHTML = '';
+        resultSourceEl.innerHTML = '';
 
         if (!res) {
           setError(`No response - ${kindError}`);
