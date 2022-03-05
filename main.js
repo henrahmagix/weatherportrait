@@ -16,9 +16,9 @@ function filmFromSunninessAndUV(sunniness, uv) {
     return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 0, 200);
   } else if (sunniness === 'Sunny Intervals') {
     if (uv > 1) {
-      return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 160, 400);
-    } else {
       return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 160, 200);
+    } else {
+      return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 200, 400);
     }
   } else {
     return randomItemFromNumberRangeInObjectOfListsKeyedByNumber(filmsByISO, 500, 10000);
