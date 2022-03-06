@@ -13,11 +13,9 @@
     <p>Unfortunately this won't work without JavaScript, because it's only a simple HTML file with one CSS and one JS file.</p>
   </noscript>
 
-  <header>
-    <h1 class="page-title">Film speed for the Weather</h1>
-  </header>
-
   <main>
+    <h1 class="page-title">Film speed for the Weather</h1>
+
     <form id="get_postcode">
       <label class="form-field" for="postcode_input">Enter first part of postcode, or 7-digit location id:</label>
       <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" style="width: 30ex;" required>
@@ -57,26 +55,26 @@
       "Manchester, Manchester", results in <a href="https://www.bbc.co.uk/weather/2643123">https://www.bbc.co.uk/weather/2643123</a>.
       Therefore using 2643123 in the form below will give you a forecast for Manchester, UK.
     </p>
-  </main>
 
-  <footer>
-    <p>
-      <a href="https://henryblyth.com">Built by Henry Blyth</a> 📸
-      <br>
-      <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">Based on a tweet idea by Rab Fyfe</a>
-    </p>
-    <blockquote class="twitter-tweet">
-      <p lang="en" dir="ltr">
-        App idea: another weather app but it shows film speeds.
+    <footer>
+      <p>
+        <a href="https://henryblyth.com">Built by Henry Blyth</a> 📸
         <br>
-        <br>
-        Sunday with <a href="https://twitter.com/iamashley?ref_src=twsrc%5Etfw">@iamashley</a>
-        looks to be a nice dose of <a href="https://twitter.com/Kodak?ref_src=twsrc%5Etfw">@Kodak</a> Portra 160.
+        <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">Based on a tweet idea by Rab Fyfe</a>
       </p>
-      &mdash; Rab Fyfe (@ItsRab)
-      <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">March 4, 2022</a>
-    </blockquote>
-  </footer>
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          App idea: another weather app but it shows film speeds.
+          <br>
+          <br>
+          Sunday with <a href="https://twitter.com/iamashley?ref_src=twsrc%5Etfw">@iamashley</a>
+          looks to be a nice dose of <a href="https://twitter.com/Kodak?ref_src=twsrc%5Etfw">@Kodak</a> Portra 160.
+        </p>
+        &mdash; Rab Fyfe (@ItsRab)
+        <a href="https://twitter.com/ItsRab/status/1499691971580997632?ref_src=twsrc%5Etfw">March 4, 2022</a>
+      </blockquote>
+    </footer>
+  </main>
 
   <script src='films_data.js'></script>
   <script src='main.js'></script>
