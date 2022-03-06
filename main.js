@@ -83,7 +83,6 @@ function run() {
     event.stopPropagation();
     const postcode = postcodeInput.value.trim();
     if (postcode) {
-      history.pushState(null, '', `?postcode=${postcode}`);
       fetchAndDisplay(postcode);
     } else {
       setError('Please enter the first part of a postcode, or a BBC Weather location ID');
@@ -94,6 +93,7 @@ function run() {
   const storedPostcode = localStorage.getItem(POSTCODE_STORAGE_KEY);
   if (storedRes && storedPostcode) {
     postcodeInput.value = storedPostcode;
+    setLoading(false);
     renderFeed(JSON.parse(storedRes), storedPostcode);
   }
 
@@ -154,9 +154,11 @@ function run() {
         const xmlJson = parseXmlToObject(res.responseXML, ['item']);
         localStorage.setItem(JSON_STORAGE_KEY, JSON.stringify(xmlJson));
         localStorage.setItem(POSTCODE_STORAGE_KEY, postcode);
+        history.pushState(null, '', `?postcode=${postcode}`);
         renderFeed(xmlJson, postcode);
       })
       .catch(err => {
+        setLoading(false);
         setError(`Something went wrong - ${kindError}`);
         console.error(err);
       });
@@ -194,7 +196,7 @@ function run() {
 
       sourceFeedLink.href        = feedUrl(postcode);
       sourceFeedLink.textContent = 'feed';
-      sourceFeedLink.ariaLabel   = 'Source RSS feed for the weather data';
+      sourceFeedLink.setAttribute('aria-label', 'Source RSS feed for the weather data');
       resultSourceEl.appendChild(sourceFeedLink);
 
       resultSourceEl.append(' | ');
@@ -206,7 +208,7 @@ function run() {
       // sourcePageLink.href        = weatherValues.link['#text'];
       sourcePageLink.href        = `https://www.bbc.co.uk/weather/${postcode}`;
       sourcePageLink.textContent = 'page';
-      sourceFeedLink.ariaLabel   = 'Source page for the weather data';
+      sourcePageLink.setAttribute('aria-label', 'Source page for the weather data');
       resultSourceEl.appendChild(sourcePageLink);
     }
 
