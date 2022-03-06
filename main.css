@@ -38,6 +38,7 @@ body {
   min-height: calc(100vh - 4rem);
   font-size: 1.2em;
   line-height: 1.6;
+  word-break: break-word;
 }
 
 ::selection {
