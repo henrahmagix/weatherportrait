@@ -95,6 +95,22 @@ main {
   height: 8rem;
 }
 
+@media screen and (min-width: 1260px) {
+  .collapse-when-wide-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+  }
+
+  .collapse-when-wide + .hr {
+    height: auto;
+    width: 2rem;
+    margin: 0 2rem;
+    padding: 0;
+    border: 0.5rem double;
+  }
+}
+
 main footer {
   font-size: smaller;
 }

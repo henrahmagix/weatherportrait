@@ -14,37 +14,43 @@
   </noscript>
 
   <main>
-    <h1 class="page-title">Film speed for the Weather</h1>
+    <div class="collapse-when-wide-wrapper">
+      <div class="collapse-when-wide">
+        <h1 class="page-title">Film speed for the Weather</h1>
 
-    <form id="get_postcode">
-      <label class="form-field" for="postcode_input">Enter first part of postcode, or 7-digit location id:</label>
-      <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" style="width: 30ex;" required>
-      <button type="submit">Submit</button>
-      <span id="form_loading" class="loading-progress" aria-label="Waiting for the weather report…" hidden>⏳</span>
-      <p id="get_postcode_errors" class="error" hidden>
-        <span aria-label="Error:" class="error-icon">!</span>
-      </p>
-    </form>
-
-    <div class="hr"></div>
-
-    <article id="result" class="results" hidden>
-      <h2 id="result_title" class=""></h2>
-      <!-- <p id="result_date"></p> -->
-      <dl id="result_items" class="result-list"></dl>
-      <!-- <pre id="result_debug"></pre> -->
-
-      <footer>
-        <div class="sources">
-          <p>
-            <span id="result_source"></span>
-            <br>
-            <span id="result_copyright"></span>
+        <form id="get_postcode">
+          <label class="form-field" for="postcode_input">Enter first part of postcode, or 7-digit location id:</label>
+          <input id="postcode_input" name="postcode" type="text" placeholder="E.g. W1A, or AB15, or 2643123" style="width: 30ex;" required>
+          <button type="submit">Submit</button>
+          <span id="form_loading" class="loading-progress" aria-label="Waiting for the weather report…" hidden>⏳</span>
+          <p id="get_postcode_errors" class="error" hidden>
+            <span aria-label="Error:" class="error-icon">!</span>
           </p>
-          <p>Source for film stocks: <a href="https://en.wikipedia.org/wiki/List_of_photographic_films" aria-label="List of photographic films on Wikipedia">wikipedia</a></p>
-        </div>
-      </footer>
-    </article>
+        </form>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="collapse-when-wide">
+        <article id="result" class="results" hidden>
+          <h2 id="result_title" class=""></h2>
+          <!-- <p id="result_date"></p> -->
+          <dl id="result_items" class="result-list"></dl>
+          <!-- <pre id="result_debug"></pre> -->
+
+          <footer>
+            <div class="sources">
+              <p>
+                <span id="result_source"></span>
+                <br>
+                <span id="result_copyright"></span>
+              </p>
+              <p>Source for film stocks: <a href="https://en.wikipedia.org/wiki/List_of_photographic_films" aria-label="List of photographic films on Wikipedia">wikipedia</a></p>
+            </div>
+          </footer>
+        </article>
+      </div>
+    </div>
 
     <div class="hr large"></div>
 
