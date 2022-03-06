@@ -131,7 +131,7 @@ main {
   }
 }
 
-main footer {
+article footer {
   font-size: smaller;
 }
 
@@ -139,6 +139,10 @@ main footer {
   margin: 1rem 0;
   font-size: 3rem;
   line-height: 1.2;
+}
+
+.page-description {
+  font-size: smaller;
 }
 
 input[type=text],
