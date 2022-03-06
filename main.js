@@ -33,7 +33,9 @@ const messages = [
   'how about a spot of',
   'perhaps a smidge of',
   'maybe a roll of',
-  'feels like a day of',
+  'feels like a good day for',
+  'just right for',
+  "why don't we pop in a bit of",
 ];
 
 function lovelyMessage() {
