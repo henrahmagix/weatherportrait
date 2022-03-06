@@ -70,7 +70,6 @@ function run() {
 
   const errorPrefix = errorsElement.innerHTML;
 
-  const resultTitleEl     = /** @type {HTMLElement} */      (document.getElementById('result_title'));
   // const resultDateEl      = /** @type {HTMLElement} */      (document.getElementById('result_date'));
   const resultCopyrightEl = /** @type {HTMLElement} */      (document.getElementById('result_copyright'));
   const resultItemsEl     = /** @type {HTMLDListElement} */ (document.getElementById('result_items'));
@@ -177,7 +176,6 @@ function run() {
     }
 
     // debugElement.innerHTML = '';
-    resultTitleEl.innerHTML = '';
     // resultDateEl.innerHTML = '';
     resultCopyrightEl.innerHTML = '';
     resultItemsEl.innerHTML = '';
@@ -185,12 +183,12 @@ function run() {
 
     resultElement.lang = weatherValues.language && weatherValues.language['#text']; // if null, attr will be removed, which is good, so it defaults to inheritance
 
-    resultTitleEl.textContent = weatherValues.title && weatherValues.title['#text'];
     // resultDateEl.textContent = weatherValues.pubDate && `Report made at ${weatherValues.pubDate['#text']}`;
     resultCopyrightEl.textContent = weatherValues.copyright && weatherValues.copyright['#text'];
 
     if (weatherValues.link) {
-      resultSourceEl.textContent = 'Source for weather data: ';
+      resultSourceEl.textContent = `Source for weather data: ${weatherValues ? weatherValues.title['#text'] + ' - ' : ''}`;
+
       const sourcePageLink = document.createElement('a');
       const sourceFeedLink = document.createElement('a');
 
