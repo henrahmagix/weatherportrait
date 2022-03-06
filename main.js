@@ -94,8 +94,6 @@ function run() {
     postcodeInput.value = storedPostcode;
     setLoading(false);
     renderFeed(JSON.parse(storedRes), storedPostcode);
-  } else {
-    document.querySelectorAll('.hide-when-unstarted').forEach(el => /** @type {HTMLElement} */ (el).hidden = true);
   }
 
   const urlPostcode = new URLSearchParams(location.search).get('postcode');
@@ -177,7 +175,6 @@ function run() {
     }
 
     clearError();
-    document.querySelectorAll('.hide-when-unstarted').forEach(el => /** @type {HTMLElement} */ (el).hidden = false);
 
     // debugElement.innerHTML = '';
     // resultDateEl.innerHTML = '';
