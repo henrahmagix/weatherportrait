@@ -29,12 +29,23 @@ html {
   padding: 0;
 }
 
+:root {
+  --body-border-width: 0.5rem;
+  --body-padding: 0.5rem;
+}
+@media screen and (min-width: 800px) {
+  :root {
+    --body-border-width: 1rem;
+    --body-padding: 1rem;
+  }
+}
+
 body {
   color: #1c1b1a;
   background-color: #94dcff;
-  border: 1rem ridge #eedbc2;
+  border: var(--body-border-width) ridge #eedbc2;
   margin: 0;
-  padding: 1rem;
+  padding: var(--body-padding);
   min-height: calc(100vh - 4rem);
   font-size: 1.2em;
   line-height: 1.6;
@@ -88,7 +99,7 @@ main {
   border-left: none;
   border-right: none;
   height: 2rem;
-  margin: 1rem -1rem;
+  margin: 1rem calc(-1 * var(--body-padding));
   padding: 0 1rem;
 }
 
