@@ -30,7 +30,7 @@ wikiFilmStocks
       filmsBySpeed[row.ISO] = [];
     }
     var description = `${row.Make} ${row.Name}`;
-    if (!description.includes(row.ISO)) {
+    if (!description.includes(row.ISO) && parseFloat(row.ISO) >= 20) {
       description += ` ${row.ISO}`;
     }
     filmsBySpeed[row.ISO].push(description);

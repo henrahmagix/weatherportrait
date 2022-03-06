@@ -3,31 +3,31 @@ const filmsByISO = {
   "3": [
     "FPP Mz3 Fine Grain",
     "FPP Eastman Kodak 5302 Fine Grain",
-    "FPP Blue Ultra Color 3",
+    "FPP Blue Ultra Color",
     "Svema / Astrum МЗ-3 (MZ-3)"
   ],
   "5": [
-    "FPP X-Ray Film 5"
+    "FPP X-Ray Film"
   ],
   "6": [
-    "FPP Fine Grain Six 6",
-    "FPP Low ISO Black & White 6",
-    "FPP Blue Sensitive 6",
+    "FPP Fine Grain Six",
+    "FPP Low ISO Black & White",
+    "FPP Blue Sensitive",
     "KONO! Donau 6",
-    "SPUR Ultra R 800 6"
+    "SPUR Ultra R 800"
   ],
   "8": [
-    "Lomography Fantome Kino 8"
+    "Lomography Fantome Kino"
   ],
   "10": [
-    "FPP X-Ray Film 10",
-    "Ultrafine Ortho Litho Film 10"
+    "FPP X-Ray Film",
+    "Ultrafine Ortho Litho Film"
   ],
   "12": [
-    "Film Washi 'A' 12"
+    "Film Washi 'A'"
   ],
   "13": [
-    "Lomography Babylon Kino 13"
+    "Lomography Babylon Kino"
   ],
   "20": [
     "ADOX CMS 20 II PRO"
@@ -287,12 +287,15 @@ const filmsByISO = {
     "Lomography Color Negative 800"
   ],
   "1000": [
-    "ILFORD DELTA 3200 1000"
+    "ILFORD DELTA 1000"
+  ],
+  "3200": [
+    "ILFORD DELTA 3200"
   ],
   "0.8": [
-    "FPP Super Positive Film 0.8"
+    "FPP Super Positive Film"
   ],
   "1.6": [
-    "FPP Low ISO Color 1.6"
+    "FPP Low ISO Color"
   ]
 }
