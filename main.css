@@ -152,6 +152,13 @@ input[type=text] {
   border-color: #0A3BC5;
 }
 
+.submit-wrapper {
+  position: relative;
+}
+.submit-wrapper .loading-progress {
+  position: absolute;
+}
+
 .result-list {
   margin: 1rem 0 2rem;
 }

@@ -126,7 +126,6 @@ function run() {
   function fetchAndDisplay(postcode) {
     postcode = postcode.toLowerCase();
 
-    clearError();
     setLoading(true);
 
     xhrGet(feedUrl(postcode))
@@ -174,6 +173,8 @@ function run() {
       console.error(`Unable to parse weather values from RSS feed:\n${JSON.stringify(xmlJson, null, 2)}`);
       return;
     }
+
+    clearError();
 
     // debugElement.innerHTML = '';
     // resultDateEl.innerHTML = '';
