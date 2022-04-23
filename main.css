@@ -135,10 +135,6 @@ main {
   padding: 0 1rem;
 }
 
-.hr.large {
-  height: 8rem;
-}
-
 @media screen and (min-width: 800px) {
   .collapse-when-wide-wrapper {
     display: flex;
@@ -154,16 +150,14 @@ main {
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: 400px;
+    margin-right: 1rem;
   }
 
   .collapse-when-wide + .hr {
-    flex-shrink: 0;
-    flex-grow: 0;
-    height: auto;
+    visibility: hidden;
     width: 0.5rem;
     margin: 0 1rem;
     padding: 0;
-    border: 0.5rem double;
   }
 }
 
